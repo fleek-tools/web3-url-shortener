@@ -1,4 +1,4 @@
-export const runtime = "experimental-edge";
+// export const runtime = "experimental-edge";
 
 export async function getServerSideProps(context) {
   const { shortCode } = context.params;
@@ -26,7 +26,7 @@ export async function getServerSideProps(context) {
   };
 }
 
-export default function ShortCodePage({ shortCode, error }) {
+export default function ShortCodePage({ error }) {
   return (
     <div className="min-h-screen bg-gray-dark-1 flex items-center justify-center">
       <div className="bg-gray-dark-2 p-8 rounded-xl shadow-2xl max-w-md w-full border border-gray-dark-4">

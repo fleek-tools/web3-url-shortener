@@ -2,11 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { ethers } from "ethers";
-import {
-  useAccount,
-  useWalletClient,
-  useChainId,
-} from "wagmi";
+import { useAccount, useWalletClient, useChainId } from "wagmi";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { getSignerContract } from "../lib/contract";
 
@@ -24,7 +20,13 @@ export default function Home() {
   const [signer, setSigner] = useState(null);
 
   useEffect(() => {
-    if (isConnected && walletClient) {
+    // Only access window/ethereum in useEffect
+    if (
+      typeof window !== "undefined" &&
+      window.ethereum &&
+      isConnected &&
+      walletClient
+    ) {
       const ethersProvider = new ethers.BrowserProvider(window.ethereum);
       ethersProvider.getSigner().then(setSigner).catch(console.error);
     } else {
