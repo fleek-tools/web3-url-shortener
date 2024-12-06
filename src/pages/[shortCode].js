@@ -1,37 +1,18 @@
-import { ethers } from "ethers";
-import urlShortenerJson from "../abi/URLShortener.json";
-
 export const runtime = "experimental-edge";
 
 export async function getServerSideProps(context) {
   const { shortCode } = context.params;
-  const provider = new ethers.JsonRpcProvider(
-    "https://arb-sepolia.g.alchemy.com/v2/NiaoOlWmEe3y5sU3a3c4artPHYXj2xYq"
-  );
 
   try {
-    const network = await provider.getNetwork();
-    console.log("Network details:", network);
-
-    const contract = new ethers.Contract(
-      process.env.NEXT_PUBLIC_CONTRACT_ADDRESS,
-      urlShortenerJson.abi,
-      provider
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/redirect/${shortCode}`
     );
+    const data = await response.json();
 
-    // Query events to verify URL was set
-    const filter = contract.filters.URLShortened(shortCode);
-    const events = await contract.queryFilter(filter);
-    console.log("URL Events:", events);
-
-    const url = await contract.getURL(shortCode);
-    console.log("URL returned:", url);
-
-    if (url && url !== "") {
-      const fullUrl = url.startsWith("http") ? url : `https://${url}`;
+    if (response.ok && data.url) {
       return {
         redirect: {
-          destination: fullUrl,
+          destination: data.url,
           permanent: false,
         },
       };

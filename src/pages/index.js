@@ -4,12 +4,11 @@ import { useState, useEffect } from "react";
 import { ethers } from "ethers";
 import {
   useAccount,
-  usePublicClient,
   useWalletClient,
   useChainId,
 } from "wagmi";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
-import { getSignerContract } from "@/lib/contract";
+import { getSignerContract } from "../lib/contract";
 
 export default function Home() {
   const [shortCode, setShortCode] = useState("");
@@ -19,7 +18,6 @@ export default function Home() {
   const [copySuccess, setCopySuccess] = useState("");
 
   const { address, isConnected } = useAccount();
-  const publicClient = usePublicClient();
   const { data: walletClient } = useWalletClient();
   const chainId = useChainId();
 
