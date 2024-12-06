@@ -9,7 +9,7 @@ import {
   useChainId,
 } from "wagmi";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
-import { getSignerContract } from "../lib/contract";
+import { getSignerContract } from "@/lib/contract";
 
 export default function Home() {
   const [shortCode, setShortCode] = useState("");

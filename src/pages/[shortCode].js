@@ -1,7 +1,7 @@
 import { ethers } from "ethers";
-import urlShortenerJson from "../abi/UrlShortener.json";
+import urlShortenerJson from "@/abi/UrlShortener.json";
 
-export const runtime = 'experimental-edge'
+export const runtime = "experimental-edge";
 
 export async function getServerSideProps(context) {
   const { shortCode } = context.params;
