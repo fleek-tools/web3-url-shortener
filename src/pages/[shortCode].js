@@ -1,5 +1,5 @@
 import { ethers } from "ethers";
-import urlShortenerJson from "@/abi/UrlShortener.json";
+import urlShortenerJson from "../abi/URLShortener.json";
 
 export const runtime = "experimental-edge";
 
