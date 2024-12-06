@@ -2,7 +2,7 @@ import "../styles/globals.css";
 import "@rainbow-me/rainbowkit/styles.css";
 
 import { Inter } from "next/font/google";
-import Providers from "@lib/providers.jsx";
+import Providers from "../lib/providers";
 
 function App({ Component, pageProps }) {
   return (
