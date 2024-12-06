@@ -2,7 +2,7 @@
 import { ethers } from "ethers";
 import urlShortenerJson from "../../../abi/URLShortener.json";
 
-export const runtime = "edge";
+// export const runtime = "edge";
 
 export default async function handler(req, res) {
   const { shortCode } = req.query;
