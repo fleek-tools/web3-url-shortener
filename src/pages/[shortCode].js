@@ -1,12 +1,15 @@
-// export const runtime = "experimental-edge";
+export const runtime = "experimental-edge";
 
 export async function getServerSideProps(context) {
   const { shortCode } = context.params;
 
+ 
+  const protocol = context.req.headers["x-forwarded-proto"] || "http"; 
+  const host = context.req.headers.host;
+  const baseUrl = `${protocol}://${host}`;
+
   try {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/redirect/${shortCode}`
-    );
+    const response = await fetch(`${baseUrl}/api/redirect/${shortCode}`);
     const data = await response.json();
 
     if (response.ok && data.url) {

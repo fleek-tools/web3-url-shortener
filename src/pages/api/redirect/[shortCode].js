@@ -1,14 +1,17 @@
-// pages/api/redirect/[shortCode].js
 import { ethers } from "ethers";
 import urlShortenerJson from "../../../abi/URLShortener.json";
 
-// export const runtime = "edge";
+export const runtime = "edge";
 
-export default async function handler(req, res) {
-  const { shortCode } = req.query;
+export default async function handler(request) {
+  const { searchParams } = new URL(request.url);
+  const shortCode = searchParams.get("shortCode");
 
-  if (req.method !== "GET") {
-    return res.status(405).json({ error: "Method not allowed" });
+  if (request.method !== "GET") {
+    return new Response(JSON.stringify({ error: "Method not allowed" }), {
+      status: 405,
+      headers: { "Content-Type": "application/json" },
+    });
   }
 
   try {
@@ -26,12 +29,21 @@ export default async function handler(req, res) {
 
     if (url && url !== "") {
       const fullUrl = url.startsWith("http") ? url : `https://${url}`;
-      return res.status(200).json({ url: fullUrl });
+      return new Response(JSON.stringify({ url: fullUrl }), {
+        status: 200,
+        headers: { "Content-Type": "application/json" },
+      });
     }
 
-    return res.status(404).json({ error: "URL not found" });
+    return new Response(JSON.stringify({ error: "URL not found" }), {
+      status: 404,
+      headers: { "Content-Type": "application/json" },
+    });
   } catch (error) {
     console.error("Error:", error);
-    return res.status(500).json({ error: "Server error" });
+    return new Response(JSON.stringify({ error: "Server error" }), {
+      status: 500,
+      headers: { "Content-Type": "application/json" },
+    });
   }
 }
