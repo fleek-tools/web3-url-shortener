@@ -1,32 +1,24 @@
-// ./lib/providers.jsx
-
 "use client";
 
-import { WagmiProvider } from "wagmi";
-import "@rainbow-me/rainbowkit/styles.css";
-import { RainbowKitProvider, darkTheme } from "@rainbow-me/rainbowkit";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import dynamic from "next/dynamic";
+import { useEffect, useState } from "react";
 
-import { config } from "../lib/wagmi";
-
-const queryClient = new QueryClient();
+// Dynamically import web3 components with ssr disabled
+const Web3Providers = dynamic(
+  () => import("./Web3Providers").then((mod) => mod.default),
+  { ssr: false }
+);
 
 export default function Providers({ children }) {
-  return (
-    <WagmiProvider config={config}>
-      <QueryClientProvider client={queryClient}>
-        <RainbowKitProvider
-          theme={darkTheme({
-            accentColor: "#0E76FD",
-            accentColorForeground: "white",
-            borderRadius: "large",
-            fontStack: "system",
-            overlayBlur: "small",
-          })}
-        >
-          {children}
-        </RainbowKitProvider>
-      </QueryClientProvider>
-    </WagmiProvider>
-  );
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return <>{children}</>;
+  }
+
+  return <Web3Providers>{children}</Web3Providers>;
 }

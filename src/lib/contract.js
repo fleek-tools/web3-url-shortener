@@ -1,30 +1,22 @@
-// // lib/contract.js
-
-// import { ethers } from "ethers";
-// import urlShortenerJson from "../abi/URLShortener.json"; // Ensure this path is correct
-
-// export function getSignerContract(signer) {
-//   const contract = new ethers.Contract(
-//     process.env.NEXT_PUBLIC_CONTRACT_ADDRESS,
-//     urlShortenerJson.abi,
-//     signer
-//   );
-//   console.log("Signer Contract instantiated:", contract);
-//   return contract;
-// }
-
 import { ethers } from "ethers";
 import urlShortenerJson from "../abi/URLShortener.json";
 
 export function getSignerContract(signer) {
-  if (!process.env.NEXT_PUBLIC_CONTRACT_ADDRESS) {
+  if (!signer) {
+    console.error("No signer provided to getSignerContract");
+    throw new Error("No signer available");
+  }
+
+  const address = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS;
+  console.log("Contract configuration:", {
+    address,
+    hasABI: !!urlShortenerJson.abi,
+    signer: !!signer,
+  });
+
+  if (!address) {
     throw new Error("Contract address not configured");
   }
 
-  const contract = new ethers.Contract(
-    process.env.NEXT_PUBLIC_CONTRACT_ADDRESS,
-    urlShortenerJson.abi,
-    signer
-  );
-  return contract;
+  return new ethers.Contract(address, urlShortenerJson.abi, signer);
 }
