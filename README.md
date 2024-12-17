@@ -189,3 +189,12 @@ This project is provided under the [MIT License](LICENSE).
 
 **Original Article:** [Building a Web3 URL Shortener with Next.js on Fleek](https://dev.to/fleek/building-a-web3-url-shortener-with-nextjs-on-fleek-hbb)  
 **Author:** [@tobySolutions](https://github.com/tobySolutions)  
+
+## Learn More
+
+- [Fleek CLI Docs](https://fleek.xyz/docs/cli/)
+- [Fleek Function Docs](https://fleek.xyz/docs/cli/functions/)
+- [Fleek Next Docs](https://fleek.xyz/docs/cli/functions/)
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js
+  features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
